@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Parkour Community</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+	        <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/noscript.css') }}" /></noscript>
+	        <link rel="icon" href="{{ url_for('static', filename='parkour/images/favicon.png') }}">
+	</head>
+	<body class="is-preload">
+
+			<div id="wrapper">
+
+					<header id="header" class="alt">
+						<span class="logo"><img src="{{ url_for('static', filename='parkour/images/parkourbannerlogo.png') }}" alt="" /></span>
+						<h1>Orion Drift Parkour Community</h1>
+						<p>A community of talented and dedicated drifters.</p>
+					</header>
+
+					<nav id="nav">
+						<ul>
+							<li><a href="#first" class="active">About</a></li>
+							<li><a href="#second">Map</a></li>
+							<li><a href="#third">Badge Winners</a></li>
+							<li><a href="#fourth">Weekly's</a></li>
+							<li><a href="#fifth">Why Join?</a></li>
+						</ul>
+					</nav>
+
+					<div id="main">
+							<section id="first" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>About Us</h2>
+										</header>
+										<p>Welcome to the Orion Drift Parkour Community! We consist of dedicated drifters that enjoy mastering the toughest mechanics in the game. This community was built for players who thrive on challenge, precision, and pushing their movement to the limit.</p>
+										<ul class="actions">
+											<li><a href="https://discord.gg/odcf" target="_blank" class="button primary">Join the Discord</a></li>
+										</ul>
+									</div>
+									<span class="image"><img src="{{ url_for('static', filename='parkour/images/squaremelon318.jpg') }}" alt="" /></span>
+								</div>
+							</section>
+
+							<section id="second" class="main special">
+						                <header class="major">
+						                    <h2>Parkour Map</h2>
+						                    <p>All parkour pro challenges in order.</p>
+						                </header>
+						                <div id="map" style="width: 100%; height: 600px; border: 2px solid #ccc;"></div>
+						            </section>
+						
+						            <!-- Leaflet Map Dependencies -->
+						            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+						            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+						
+						            <script>
+						                document.addEventListener("DOMContentLoaded", function () {
+						                    const imageWidth = 1080;
+						                    const imageHeight = 1920;
+						                    const bounds = [[0, 0], [imageHeight, imageWidth]];
+						                    const imageUrl = "{{ url_for('static', filename='parkour/images/ParkourHeaddownUpdated1.png') }}";
+						
+						                    const map = L.map('map', {
+						                        crs: L.CRS.Simple,
+						                        minZoom: -1.5,
+						                        maxZoom: 2,
+						                        zoomSnap: 0.25
+						                    });
+						
+						                    L.imageOverlay(imageUrl, bounds).addTo(map);
+						                    map.fitBounds(bounds);
+						                });
+						            </script>         
+								<div style="text-align: center;"> 
+								  <details id="map-details">
+								    <summary id="map-summary" style="cursor: pointer; font-weight: bold; margin-bottom: 10px;">
+								      <strong>Click to Show Map Key</strong>
+								    </summary>
+								
+								    <ol class="map-key-list">
+								      <li>Skip n Hop</li>
+								      <li>Not An Intro</li>
+								      <li>Delicate Carves</li>
+								      <li>Rock To Metal</li>
+								      <li>Initiation</li>
+								      <li>Trap Door</li>
+								      <li>Roof Loop</li>
+								      <li>Ceilyin</li>
+								      <li>Ceilyang</li>
+								      <li>Wall Carve</li>
+								      <li>Evil Smile</li>
+								      <li>Attempt Flight</li>
+								      <li>That's A Gap</li>
+								      <li>Window Hall</li>
+								      <li>Lock n Load</li>
+								      <li>Rebound</li>
+								      <li>Jungle Gym Puzzle</li>
+								      <li>Laser Line</li>
+								      <li>Arch Way</li>
+								      <li>Roof Crack</li>
+								      <li>Cross the Gym</li>
+								      <li>Drop Loop</li>
+								      <li>Drop'in Downcarve</li>
+								      <li>Freefall</li>
+								      <li>Stalagnation 16</li>
+								      <li>Mt. Leap</li>
+								      <li>Stick to Seam</li>
+								      <li>The Intro</li>
+								      <li>Not So Direct</li>
+								      <li>Green Spiral</li>
+								    </ol>
+								  </details>
+								</div>
+								
+								<style>
+								  .map-key-list {
+								    list-style-position: inside;
+								    padding-left: 0;
+								    display: inline-block;
+								    text-align: left;
+								    column-count: 2;
+								    column-gap: 40px;
+								    margin-top: 10px;
+								    max-width: 800px;
+								  }
+								
+								  @media (max-width: 768px) {
+								    .map-key-list {
+								      column-count: 1;
+								    }
+								  }
+								</style>
+								
+								<script>
+								  const details = document.getElementById("map-details");
+								  const summary = document.getElementById("map-summary");
+								
+								  details.addEventListener("toggle", () => {
+								    if (details.open) {
+								      summary.innerHTML = "<strong>Click to Hide Map Key</strong>";
+								    } else {
+								      summary.innerHTML = "<strong>Click to Show Map Key</strong>";
+								    }
+								  });
+								</script>
+
+							<section id="third" class="main special">
+							  <header class="major">
+									<h2>Parkour Community Badge Winners</h2>
+								</header>
+								 <div style="text-align: center;">
+								    <h3>Last Updated: 7/30</h3>
+								    <ul style="
+								      list-style-position: inside;
+								      padding-left: 0;
+								      display: inline-block;
+								      text-align: left;
+								      columns: 2;
+								      column-gap: 40px;  
+								    ">
+								      <li>MisfortuneVR</li>
+								      <li>Dxso</li>
+								      <li>Mintister</li>
+								      <li>LGloki</li>
+								      <li>Scribbl</li>
+								      <li>DMrD</li>
+								      <li>Jack_sparrow28</li>
+								      <li>Purple</li>
+								      <li>rcharlieb</li>
+								      <li>Reaper Void</li>
+								      <li>VLZ_ALD8</li>
+								      <li>FireCraze</li>
+								      <li>Peace333</li>
+								      <li>StarBurst</li>
+									  <li>seadadrifter</li>
+								      <li>Quebbo</li>
+									  <li>Psalmvr</li>
+									  <li>Pablo_1669</li>
+									  <li>Javol52</li>
+									  <li>CooperIsSexy</li>
+									  <li>Money.fr</li>
+									  <li>X_Tinu</li>
+									  <li>Peanut</li>
+									  <li>Agoofygoose</li>
+									  <li>Cutrrr</li>
+								    </ul>
+								  </div>
+							</section>
+
+							<section id="fourth" class="main special">
+								<header class="major">
+									<h2>Weekly Challenges</h2>
+									<p>Click the button below to view all weekly challenges and their rewards.</p>
+								        <ul class="actions" style="display: flex; justify-content: center;">
+										<li><a href="{{ url_for('weekly_page') }}" class="button fit">Click Here</a></li>
+									</ul>
+								</header>
+								        
+							</section>
+						
+							<section id="fifth" class="main special">
+								<header class="major">
+									<h2>Why Join?</h2>
+									<p>Parkour is the foundation of Orion Drift. Mastering it not only sharpens your movement and timing, but also gives you a competitive edge in other game modes like Driftball, Scraprun, and beyond.</p>
+								        <ul class="actions" style="display: flex; justify-content: center;">
+										<li><a href="https://discord.gg/odcf" target="_blank" class="button primary fit">Join the Discord</a></li>
+									</ul>
+								</header>
+								        
+							</section>
+
+					</div>
+
+					<footer id="footer">
+						<section>
+							<h2>Feedback</h2>
+							<p>Hello, my name is liljohn, and it is my goal to become a parkour moderator and/or event staff. I made this site to contain information that I found to be useful. Let me know what other resources I could add to make this site even better!</p>
+						</section>
+						<p class="copyright">&copy; Orion Drift Parkour Community. Site made by <a href="https://guns.lol/liljohn" target="_blank" >liljohn</a>.</p>
+					</footer>
+
+			</div>
+
+		
+			<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+	</body>
+</html>

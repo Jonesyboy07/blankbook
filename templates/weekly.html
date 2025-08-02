@@ -1,0 +1,482 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Weekly Challenges</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <noscript><link rel="stylesheet" href="{{ url_for('static', filename='css/noscript.css') }}" /></noscript>
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+  
+  <style>
+    
+    #weekly-challenges .content details {
+      border-bottom: 1px solid #ccc;
+      padding: 0.75em 0;
+    }
+    #weekly-challenges .content details > summary {
+      cursor: pointer;
+    }
+    #weekly-challenges .content details:last-child {
+      border-bottom: none;
+    }
+
+    
+    .media-pair {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 10px;
+      align-items: flex-start;
+    }
+    .media-pair .video-container,
+    .media-pair .image-container {
+      flex: 1 1 300px;
+    }
+
+    
+    .video-container video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+   
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .image-container img {
+      display: block;
+      width: auto;
+      height: auto; 
+      border-radius: 4px;
+    }
+
+    
+    .video-credit {
+      font-size: 0.85rem;
+      color: #666;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    
+    @media (max-width: 768px) {
+      .media-pair {
+        flex-direction: column;
+      }
+      .media-pair .video-container,
+      .media-pair .image-container {
+        flex: none;
+        width: 100%;
+      }
+      .image-container {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body class="is-preload">
+
+  <div id="wrapper">
+    <h1></h1>
+
+    
+    <div id="main">
+      <section id="weekly-challenges" class="main special">
+        <header class="major">
+          <h2>Weekly Challenges</h2>
+          <p>Click any challenge below to view its details.</p>
+        </header>
+        <div class="content">
+            
+            <details>
+            <summary>Weekly Challenge #23</summary>
+            <p>Fast carving on slanted slopes. Hard course contains difficult chained ceiling carves.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week23.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/blitzoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video coming soon.</p>
+          </details>
+
+            <details>
+            <summary>Weekly Challenge #22</summary>
+            <p>Run and carve along a large block of ice.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week22.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/liquidsmokepattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video coming soon.</p>
+          </details>
+
+            <details>
+            <summary>Weekly Challenge #21</summary>
+            <p>A long and winding path with boost pads.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week21.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/wedgeoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+            <details>
+            <summary>Weekly Challenge #20</summary>
+            <p>Steel beams and boulders.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week20.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/polkapattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #19</summary>
+            <p>Reverse wall carves and ice sliding.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week19.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/butterpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #18</summary>
+            <p>Ceiling carves and skinny planks.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week18.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/squintoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #17</summary>
+            <p>Ceiling carving, wall carving, and floor carving at high speeds.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week17.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/circuitpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #16</summary>
+            <p>Snake carves upwards and downwards.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week16.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/angryoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #15</summary>
+            <p>Climbing, wall running, and optional tassy's & reverse tassy's.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week15.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/flamepattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #14</summary>
+            <p>Loop carves—enough said.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week14.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/rushpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #13</summary>
+            <p>A combination of pinch carves, ceiling carves, long jumps, and a zero-g ceiling carve.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week13.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/sleepyoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #12</summary>
+            <p>Dodge obstacles at high speeds in order to hit a final high jump.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week12.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/hushpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #11</summary>
+            <p>Optional tassy, then wall carves into ceiling carves.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week11.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/karatoptics.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #10</summary>
+            <p>Cube jumps—very easy.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week10.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/camopattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #9</summary>
+            <p>High vertical climb and a big boulder.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week9.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/tigerpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #8</summary>
+            <p>Corner carves and a long jump.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week8.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/sparklepattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #7</summary>
+            <p>Pinch carving with hidden coins.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week7.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/lightningpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #6</summary>
+            <p>Zero gravity carving.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week6.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/flamepattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #5</summary>
+            <p>Wall carves, downward wall carves, and long jumps.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week5.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/camopattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #4</summary>
+            <p>Jump through tiny gaps and holes.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week4.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/tigerpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #3</summary>
+            <p>Floor carves, snake carves, wall carves, and ceiling carves.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week3.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/flamepattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #2</summary>
+            <p>With many interesting sections, this is a long challenge that uses many mechanics.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week2.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/camopattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+          <details>
+            <summary>Weekly Challenge #1</summary>
+            <p>Two wall carves and a jump—pretty simple.</p>
+            <div class="media-pair">
+              <div class="video-container">
+                <video src="{{ url_for('static', filename='parkour/videos/week1.mp4') }}" controls></video>
+              </div>
+              <div class="image-container">
+                <img src="{{ url_for('static', filename='parkour/images/tigerpattern.png') }}" alt="Challenge Reward">
+              </div>
+            </div>
+            <p class="video-credit">Video credit: MrStick62</p>
+          </details>
+
+        </div>
+      </section>
+    </div>
+
+    
+    <footer id="footer">
+      <section>
+        <h2>Join the Community</h2>
+        <p>Hello, my name is liljohn, and it is my goal to become a parkour moderator and/or event manager. I made this site to contain information that I found to be useful. Let me know what other resources I could add to make this site even better!</p>
+        <ul class="actions">
+          <li><a href="{{ url_for('parkour_page') }}" class="button">Return Home</a></li>
+        </ul>
+      </section>
+      <p class="copyright">&copy; Orion Drift Parkour Community. Site made by <a href="https://guns.lol/liljohn" target="_blank" >liljohn</a>.</p>
+    </footer>
+
+  </div>
+
+  
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.scrollex.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.scrolly.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/browser.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/breakpoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/util.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  
+  <script>
+    function syncImageToVideo(pair) {
+      const video = pair.querySelector('video');
+      const img   = pair.querySelector('img');
+      function update() {
+        const h = video.getBoundingClientRect().height;
+        img.style.height = h + 'px';
+        img.style.width  = 'auto';
+      }
+      if (video.readyState >= 1) update();
+      else video.addEventListener('loadedmetadata', update);
+
+      const details = pair.closest('details');
+      details.addEventListener('toggle', () => {
+        if (details.open) update();
+      });
+
+      window.addEventListener('resize', update);
+    }
+
+    document.querySelectorAll('.media-pair').forEach(syncImageToVideo);
+  </script>
+  <script>
+    const challengeDetails = document.querySelectorAll('#weekly-challenges details');
+    challengeDetails.forEach(detail => {
+      detail.addEventListener('toggle', () => {
+        if (detail.open) {
+          challengeDetails.forEach(other => {
+            if (other !== detail) other.open = false;
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+*.log
+/static
+AutoRestart.py
+*.bat

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diary Entries</title>
+    <meta property="og:title" content="My Diary Entries" />
+    <meta property="og:description" content="A collection of personal diary entries. Click to explore." />
+    <meta property="og:url" content="https://eascrapbook.org/diary" />
+    <meta property="og:type" content="website" />
+    <style>
+        body {
+            background-color: #1e1e1e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #f1f1f1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .entry {
+            background: #2a2a2a;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+        .entry summary {
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            background: #333;
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 1px solid #444;
+        }
+        .entry .content {
+            padding: 1rem 1.5rem;
+        }
+        a {
+            color: #7abaff;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 0.8rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Diary Entries</h1>
+    {% for entry in entries %}
+    <details class="entry">
+        <summary>{{ entry.title }}</summary>
+        <div class="content">
+            {{ entry.content|safe }}
+        </div>
+    </details>
+    {% endfor %}
+    <p style="text-align: center;"><a href="/">Back to Home</a></p>
+</body>
+</html>
