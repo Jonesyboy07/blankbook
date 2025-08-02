@@ -54,7 +54,7 @@ for file_path, default in [
             json.dump(default, f)
 
 # Logging configuration
-file_handler = RotatingFileHandler(LOG_FILE, maxBytes=1_000_000, backupCount=3)
+file_handler = RotatingFileHandler(LOG_FILE, maxBytes=1_000_000, backupCount=3, delay=True)
 file_handler.setLevel(logging.INFO)
 file_formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 file_handler.setFormatter(file_formatter)
@@ -192,6 +192,6 @@ def page_not_found(e):
 
 # Run the app
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+    app.run(host="127.0.0.1", port=5000, multithreaded=False)
 
 #test
