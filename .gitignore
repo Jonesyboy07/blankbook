@@ -1,5 +1,5 @@
-*.log
+*.log*
 /static
 AutoRestart.py
 *.bat
-Data/views.json
+Data\views.json
