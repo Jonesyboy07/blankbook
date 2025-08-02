@@ -7,6 +7,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 from colorama import init, Fore, Style
 
+#test!
+
 # Initialize color logging for console
 init(autoreset=True)
 
