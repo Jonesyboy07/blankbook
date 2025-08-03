@@ -3,3 +3,4 @@
 AutoRestart.py
 *.bat
 Data\views.json
+Data/views.json
