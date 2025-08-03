@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Echo Global Series",
+        "description": "A tool built to assist with managing Echo League operations, including match logistics, team organization, and communication workflows."
+    },
+    {
+        "name": "Blankbook Website",
+        "description": "The source code powering this website. Check it out on GitHub.",
+        "repo": "https://github.com/Jonesyboy07/blankbook"
+    }
+]

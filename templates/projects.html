@@ -9,69 +9,91 @@
     <meta property="og:type" content="website" />
     <style>
         body {
-            background-color: #1e1e1e;
+            background-color: #121212;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 2rem;
             animation: fadeIn 1.5s ease;
         }
         .container {
-            background: #2c2c2c;
-            padding: 2.5rem 3rem;
+            background: #1f1f1f;
+            padding: 2rem 2.5rem;
             border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            color: #f1f1f1;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
             max-width: 700px;
+            width: 100%;
             animation: fadeInUp 1s ease-out;
         }
-        h1 {
-            margin-bottom: 1rem;
-            color: #f8f8f8;
+        h2 {
+            color: #f9f9f9;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
-        p {
+        .entry {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #2b2b2b;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .entry strong {
             font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            display: block;
+            margin-bottom: 0.5rem;
         }
-        .button-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .entry strong a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        .entry strong a:hover {
+            text-decoration: underline;
+        }
+        .entry p {
+            color: #bbb;
+            margin: 0;
+            font-size: 0.98rem;
         }
         a.button {
+            display: inline-block;
+            margin-top: 2rem;
             text-decoration: none;
-            background: #444;
-            color: #f1f1f1;
+            background: #333;
+            color: #f0f0f0;
             padding: 0.6rem 1.4rem;
             border-radius: 8px;
             transition: background 0.3s ease;
+            text-align: center;
         }
         a.button:hover {
-            background: #666;
+            background: #555;
         }
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Projects</h1>
-        <p>
-            Coming Soon...<br><br><br>
-
-            Want the <strong>code</strong> for this page? Check out the <a href="https://github.com/Jonesyboy07/blankbook" target="_blank" style="color: #4a90e2;">GitHub repository</a> here.
-        </p>
-        <div class="button-group">
-            <a class="button" href="/">Back</a>
-        </div>
+        <h2>Projects</h2>
+        {% for project in entries %}
+            <div class="entry">
+                <strong>
+                    {% if project.repo %}
+                        <a href="{{ project.repo }}" target="_blank">{{ project.name }}</a>
+                    {% else %}
+                        {{ project.name }}
+                    {% endif %}
+                </strong>
+                <p>{{ project.description }}</p>
+            </div>
+        {% endfor %}
+        <a class="button" href="/">Back</a>
     </div>
 </body>
 </html>
