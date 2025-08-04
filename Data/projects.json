@@ -3,7 +3,7 @@
         "name": "Echo Global Series",
         "description": "A tool built to assist with managing Echo League operations, including match logistics, team organization, and communication workflows."
     },
-{"name":"Orion Drift API Library", "description":"An unofficial API Library made in Python, using combinations of old and new API Documentstion for the game \"Orion Drift\"},
+{"name":"Orion Drift API Library", "description":"An unofficial API Library made in Python, using combinations of old and new API Documentstion for the game \"Orion Drift\""},
     {
         "name": "Blankbook Website",
         "description": "The source code powering this website. Check it out on GitHub.",
