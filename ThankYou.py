@@ -95,7 +95,7 @@ def get_and_increment_views():
     try:
         with open(VIEWS_FILE, "r+") as f:
             data = json.load(f)
-            data["total_views"] += 1
+            #data["total_views"] += 1
             f.seek(0)
             json.dump(data, f)
             f.truncate()
