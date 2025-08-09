@@ -84,7 +84,6 @@
             z-index: 2;
             box-shadow: 0 0 8px 2px #fff3, 0 0 1px 0 #fff;
         }
-        /* Particle canvas styling */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -130,19 +129,40 @@
     <footer>I won’t be gone too long, new projects soon.</footer>
 
     <script>
-        // Chaos effect for "November" with symbols
-        const chaosLength = "November".length;
-        const chaosChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?~";
+        const chaosLength = 13;
+        // Use a huge pool of characters, including emojis, symbols, and random Unicode
+        const chaosChars = [
+            ..."ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?~",
+            ..."☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼",
+            ..."😀😁😂🤣😃😄😅😆😉😊😋😎😍😘🥰😗😙😚🙂🤗🤩🤔🤨😐😑😶🙄😏😣😥😮🤐😯😪😫🥱😴😌😛😜😝🤤😒😓😔😕🙃🤑😲☹🙁😖😞😟😤😢😭😦😧😨😩🤯😬😰😱🥵🥶😳🤪😵😡😠🤬😷🤒🤕🤢🤮🤧😇🥳🥺🤠🤡🤥🤫🤭🧐🤓😈👿👹👺💀👻👽🤖💩",
+            ..."♬★☆✪✯✰☀☁☂☃☄☾☽♔♕♚♛♜♝♞♟♠♣♥♦♪♫☼☽☾☀☁☂☃☄",
+            ..."⛔✅❌❗❓⚠️⚡🔥💧🌊🌪️🌈🌟✨💫💥🌀🌙🌚🌝🌞🌛🌜🌡️🌬️🌪️🌫️🌩️🌨️🌧️🌦️🌥️🌤️⛈️🌩️🌨️🌧️🌦️🌥️🌤️",
+            ..."𐍈𐍉𐍊𐍋𐍌𐍍𐍎𐍏𐍐𐍑𐍒𐍓𐍔𐍕𐍖𐍗𐍘𐍙𐍚𐍛𐍜𐍝𐍞𐍟",
+            ..."ΩΣΨΔΛΞΠΦΓΘΩαβγδεζηθικλμνξοπρστυφχψω",
+            ..."¿¡§¶•ªº–≠≤≥∞≈≡±÷×µ∑∏∫√∂∇∈∉∋∌∏∑∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱⋲⋳⋴⋵⋶⋷⋸⋹⋺⋻⋼⋽⋾⋿"
+        ];
         function randomChaosText(length) {
             let text = "";
             for (let i = 0; i < length; i++) {
-                text += chaosChars.charAt(Math.floor(Math.random() * chaosChars.length));
+                // 50% chance to use a random Unicode code point from a wide range
+                if (Math.random() < 0.5) {
+                    // Pick a random code point from a huge Unicode range (including CJK, emoji, symbols, etc.)
+                    let codePoint = Math.floor(Math.random() * (0x2FFFF - 0x200 + 1)) + 0x200;
+                    // Avoid surrogate pairs that are not valid characters
+                    try {
+                        text += String.fromCodePoint(codePoint);
+                    } catch (e) {
+                        text += chaosChars[Math.floor(Math.random() * chaosChars.length)];
+                    }
+                } else {
+                    text += chaosChars[Math.floor(Math.random() * chaosChars.length)];
+                }
             }
             return text;
         }
         setInterval(() => {
-            document.getElementById('chaos-date').textContent = randomChaosText(chaosLength);
-        }, 70);
+            document.getElementById('chaos-date').textContent = randomChaosText(13);
+        }, 20);
 
         fetch('/api/views')
             .then(response => response.json())
@@ -154,7 +174,6 @@
                 document.getElementById('counter').textContent = 'Could not load views.';
             });
 
-        // White particle effect
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
