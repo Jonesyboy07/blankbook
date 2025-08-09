@@ -82,6 +82,14 @@
             position: relative;
             z-index: 2;
             box-shadow: 0 0 8px 2px #fff3, 0 0 1px 0 #fff;
+            /* Fixed size for chaos text */
+            width: 13ch;
+            height: 2.2em;
+            overflow: hidden;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 2.2em;
+            white-space: nowrap;
         }
         #particle-canvas, #poof-canvas {
             position: fixed;
@@ -174,7 +182,7 @@
             }
         }, 100);
 
-        // Poof particle effect
+        // Poof particle effect (smoke style)
         const poofCanvas = document.getElementById('poof-canvas');
         const poofCtx = poofCanvas.getContext('2d');
         function resizePoofCanvas() {
@@ -192,15 +200,15 @@
             const centerY = rect.top + rect.height / 2 + window.scrollY;
             for (let i = 0; i < 32; i++) {
                 const angle = Math.random() * 2 * Math.PI;
-                const speed = Math.random() * 3 + 2;
+                const speed = Math.random() * 2.5 + 1.5;
                 poofParticles.push({
                     x: centerX,
                     y: centerY,
                     vx: Math.cos(angle) * speed,
                     vy: Math.sin(angle) * speed,
-                    r: Math.random() * 6 + 4,
-                    alpha: 1,
-                    color: randomHexColor()
+                    r: Math.random() * 10 + 10,
+                    alpha: 0.25 + Math.random() * 0.25,
+                    grow: Math.random() * 0.5 + 0.2
                 });
             }
         }
@@ -209,21 +217,23 @@
             for (let i = poofParticles.length - 1; i >= 0; i--) {
                 let p = poofParticles[i];
                 poofCtx.globalAlpha = p.alpha;
+                let grad = poofCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+                grad.addColorStop(0, "rgba(220,220,220,0.7)");
+                grad.addColorStop(0.5, "rgba(180,180,180,0.2)");
+                grad.addColorStop(1, "rgba(120,120,120,0)");
                 poofCtx.beginPath();
                 poofCtx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
-                poofCtx.fillStyle = p.color;
-                poofCtx.shadowColor = p.color;
-                poofCtx.shadowBlur = 10;
+                poofCtx.fillStyle = grad;
                 poofCtx.fill();
                 p.x += p.vx;
                 p.y += p.vy;
-                p.alpha -= 0.03;
+                p.r += p.grow;
+                p.alpha -= 0.012;
                 if (p.alpha <= 0) {
                     poofParticles.splice(i, 1);
                 }
             }
             poofCtx.globalAlpha = 1;
-            poofCtx.shadowBlur = 0;
             requestAnimationFrame(animatePoof);
         }
         animatePoof();
@@ -238,6 +248,7 @@
                 document.getElementById('counter').textContent = 'Could not load views.';
             });
 
+        // Subtle smoke background particles
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -252,36 +263,41 @@
             return {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                r: Math.random() * 1.5 + 0.5,
-                d: Math.random() * 0.5 + 0.2,
-                a: Math.random() * 2 * Math.PI
+                r: Math.random() * 8 + 8,
+                d: Math.random() * 0.2 + 0.05,
+                a: Math.random() * 2 * Math.PI,
+                alpha: Math.random() * 0.15 + 0.05
             };
         }
-        for (let i = 0; i < 80; i++) {
+        for (let i = 0; i < 60; i++) {
             particles.push(createParticle());
         }
         function drawParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.globalAlpha = 0.7;
-            ctx.fillStyle = "#fff";
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                let grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+                grad.addColorStop(0, "rgba(200,200,200,0.25)");
+                grad.addColorStop(0.7, "rgba(180,180,180,0.08)");
+                grad.addColorStop(1, "rgba(120,120,120,0)");
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+                ctx.fillStyle = grad;
                 ctx.fill();
+                ctx.restore();
             }
-            ctx.restore();
         }
         function updateParticles() {
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
                 p.y += p.d;
-                p.x += Math.sin(p.a) * 0.2;
-                p.a += 0.01;
-                if (p.y > canvas.height) {
+                p.x += Math.sin(p.a) * 0.1;
+                p.a += 0.005;
+                if (p.y > canvas.height + p.r) {
                     p.x = Math.random() * canvas.width;
-                    p.y = -2;
+                    p.y = -p.r;
                 }
             }
         }
