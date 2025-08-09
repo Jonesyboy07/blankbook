@@ -8,7 +8,6 @@
     <meta property="og:url" content="https://eascrapbook.org" />
     <meta property="og:type" content="website" />
     <style>
-        /* Same styles as before */
         body {
             background-color: #1e1e1e;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,6 +18,7 @@
             height: 100vh;
             margin: 0;
             animation: fadeIn 1.5s ease;
+            overflow: hidden;
         }
         .container {
             background: #2c2c2c;
@@ -29,6 +29,8 @@
             color: #f1f1f1;
             max-width: 600px;
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
         }
         h1 {
             margin-bottom: 1rem;
@@ -67,6 +69,31 @@
             color: #999;
             margin-top: 1rem;
         }
+        .chaos {
+            font-family: 'Consolas', monospace;
+            background: linear-gradient(90deg, #222 60%, #444 100%);
+            color: #e74c3c;
+            border-radius: 4px;
+            padding: 0 0.3em;
+            letter-spacing: 0.1em;
+            display: inline-block;
+            min-width: 13ch;
+            user-select: none;
+            transition: background 0.2s;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 8px 2px #fff3, 0 0 1px 0 #fff;
+        }
+        /* Particle canvas styling */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -86,9 +113,10 @@
 <body>
 <!--I love you.-->
 <!--I miss my sister.-->
+    <canvas id="particle-canvas"></canvas>
     <div class="container">
         <h1>Thank You</h1>
-        <p>Thank you for all the opportunities.<br>Good luck in the future.<br><br> - Jonesy<br><br><br> Ill be back to Clubhouse in November.<br><br><br>no... im not dead.</p>
+        <p>Thank you for all the opportunities.<br>Good luck in the future.<br><br> - Jonesy<br><br><br> Ill be back to Clubhouse in <span class="chaos" id="chaos-date">November</span>.<br><br><br>no... im not dead.</p>
         <div class="button-group">
             <a class="button" href="/thankyou">Notable Mentions</a>
             <a class="button" href="/why">Why?</a>
@@ -102,6 +130,20 @@
     <footer>I won’t be gone too long, new projects soon.</footer>
 
     <script>
+        // Chaos effect for "November" with symbols
+        const chaosLength = "November".length;
+        const chaosChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?~";
+        function randomChaosText(length) {
+            let text = "";
+            for (let i = 0; i < length; i++) {
+                text += chaosChars.charAt(Math.floor(Math.random() * chaosChars.length));
+            }
+            return text;
+        }
+        setInterval(() => {
+            document.getElementById('chaos-date').textContent = randomChaosText(chaosLength);
+        }, 70);
+
         fetch('/api/views')
             .then(response => response.json())
             .then(data => {
@@ -111,6 +153,61 @@
                 console.error('Error loading view count:', error);
                 document.getElementById('counter').textContent = 'Could not load views.';
             });
+
+        // White particle effect
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createParticle() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.5 + 0.5,
+                d: Math.random() * 0.5 + 0.2,
+                a: Math.random() * 2 * Math.PI
+            };
+        }
+        for (let i = 0; i < 80; i++) {
+            particles.push(createParticle());
+        }
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.globalAlpha = 0.7;
+            ctx.fillStyle = "#fff";
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+        function updateParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.y += p.d;
+                p.x += Math.sin(p.a) * 0.2;
+                p.a += 0.01;
+                if (p.y > canvas.height) {
+                    p.x = Math.random() * canvas.width;
+                    p.y = -2;
+                }
+            }
+        }
+        function animateParticles() {
+            drawParticles();
+            updateParticles();
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
     </script>
 </body>
 </html>
