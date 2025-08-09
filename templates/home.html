@@ -72,19 +72,18 @@
         .chaos {
             font-family: 'Consolas', monospace;
             background: linear-gradient(90deg, #222 60%, #444 100%);
-            color: #e74c3c;
             border-radius: 4px;
             padding: 0 0.3em;
             letter-spacing: 0.1em;
             display: inline-block;
             min-width: 13ch;
             user-select: none;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
             position: relative;
             z-index: 2;
             box-shadow: 0 0 8px 2px #fff3, 0 0 1px 0 #fff;
         }
-        #particle-canvas {
+        #particle-canvas, #poof-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -92,6 +91,9 @@
             height: 100vh;
             pointer-events: none;
             z-index: 0;
+        }
+        #poof-canvas {
+            z-index: 10;
         }
         @keyframes fadeInUp {
             from {
@@ -113,6 +115,7 @@
 <!--I love you.-->
 <!--I miss my sister.-->
     <canvas id="particle-canvas"></canvas>
+    <canvas id="poof-canvas"></canvas>
     <div class="container">
         <h1>Thank You</h1>
         <p>Thank you for all the opportunities.<br>Good luck in the future.<br><br> - Jonesy<br><br><br> Ill be back to Clubhouse in <span class="chaos" id="chaos-date">November</span>.<br><br><br>no... im not dead.</p>
@@ -156,9 +159,74 @@
             }
             return text;
         }
+        function randomHexColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        }
+
+        let chaosChangeCount = 0;
         setInterval(() => {
-            document.getElementById('chaos-date').textContent = randomChaosText(13);
+            const chaosDate = document.getElementById('chaos-date');
+            chaosDate.textContent = randomChaosText(13);
+            chaosDate.style.color = randomHexColor();
+            chaosChangeCount++;
+            if (chaosChangeCount % 5 === 0) {
+                triggerPoof();
+            }
         }, 100);
+
+        // Poof particle effect
+        const poofCanvas = document.getElementById('poof-canvas');
+        const poofCtx = poofCanvas.getContext('2d');
+        function resizePoofCanvas() {
+            poofCanvas.width = window.innerWidth;
+            poofCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizePoofCanvas);
+        resizePoofCanvas();
+
+        let poofParticles = [];
+        function triggerPoof() {
+            const chaosDate = document.getElementById('chaos-date');
+            const rect = chaosDate.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2 + window.scrollX;
+            const centerY = rect.top + rect.height / 2 + window.scrollY;
+            for (let i = 0; i < 32; i++) {
+                const angle = Math.random() * 2 * Math.PI;
+                const speed = Math.random() * 3 + 2;
+                poofParticles.push({
+                    x: centerX,
+                    y: centerY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    r: Math.random() * 6 + 4,
+                    alpha: 1,
+                    color: randomHexColor()
+                });
+            }
+        }
+        function animatePoof() {
+            poofCtx.clearRect(0, 0, poofCanvas.width, poofCanvas.height);
+            for (let i = poofParticles.length - 1; i >= 0; i--) {
+                let p = poofParticles[i];
+                poofCtx.globalAlpha = p.alpha;
+                poofCtx.beginPath();
+                poofCtx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+                poofCtx.fillStyle = p.color;
+                poofCtx.shadowColor = p.color;
+                poofCtx.shadowBlur = 10;
+                poofCtx.fill();
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.03;
+                if (p.alpha <= 0) {
+                    poofParticles.splice(i, 1);
+                }
+            }
+            poofCtx.globalAlpha = 1;
+            poofCtx.shadowBlur = 0;
+            requestAnimationFrame(animatePoof);
+        }
+        animatePoof();
 
         fetch('/api/views')
             .then(response => response.json())
