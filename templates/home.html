@@ -130,7 +130,6 @@
 
     <script>
         const chaosLength = 13;
-        // Use a huge pool of characters, including emojis, symbols, and random Unicode
         const chaosChars = [
             ..."ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:',.<>/?~",
             ..."☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←∟↔▲▼",
@@ -144,11 +143,8 @@
         function randomChaosText(length) {
             let text = "";
             for (let i = 0; i < length; i++) {
-                // 50% chance to use a random Unicode code point from a wide range
                 if (Math.random() < 0.5) {
-                    // Pick a random code point from a huge Unicode range (including CJK, emoji, symbols, etc.)
                     let codePoint = Math.floor(Math.random() * (0x2FFFF - 0x200 + 1)) + 0x200;
-                    // Avoid surrogate pairs that are not valid characters
                     try {
                         text += String.fromCodePoint(codePoint);
                     } catch (e) {
@@ -162,7 +158,7 @@
         }
         setInterval(() => {
             document.getElementById('chaos-date').textContent = randomChaosText(13);
-        }, 20);
+        }, 100);
 
         fetch('/api/views')
             .then(response => response.json())
