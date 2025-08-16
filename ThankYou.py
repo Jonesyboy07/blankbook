@@ -4,7 +4,6 @@ import os
 import json
 import markdown
 import logging
-from logging.handlers import RotatingFileHandler
 from colorama import init, Fore, Style
 
 # Initialize color logging
@@ -36,7 +35,6 @@ VIEWS_FILE = os.path.join(DATA_FOLDER, "views.json")
 HONOUR_FILE = os.path.join(DATA_FOLDER, "honour.json")
 GOODBYES_FILE = os.path.join(DATA_FOLDER, "goodbyes.json")
 PROJECTS_FILE = os.path.join(DATA_FOLDER, "projects.json")
-LOG_FILE = "activity.log"
 
 # Ensure folders/files exist
 os.makedirs(DATA_FOLDER, exist_ok=True)
@@ -52,12 +50,7 @@ for file_path, default in [
         with open(file_path, "w") as f:
             json.dump(default, f)
 
-# Logging setup
-file_handler = RotatingFileHandler(LOG_FILE, maxBytes=1_000_000, backupCount=3, delay=True)
-file_handler.setLevel(logging.INFO)
-file_formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-file_handler.setFormatter(file_formatter)
-
+# Logging setup (console only, no file)
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 
@@ -77,7 +70,6 @@ console_handler.setFormatter(console_formatter)
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
 # IP-aware log action
