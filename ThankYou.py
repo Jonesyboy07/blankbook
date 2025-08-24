@@ -5,6 +5,7 @@ import json
 import markdown
 import logging
 from colorama import init, Fore, Style
+from datetime import datetime
 
 # Initialize color logging
 init(autoreset=True)
@@ -185,6 +186,11 @@ def projects_page():
 def page_not_found(e):
     log_action("404 Redirect")
     return redirect("/")
+
+@app.route("/countdown")
+def countdown():
+    target_time = datetime(2025, 8, 24, 21, 0, 0)  
+    return render_template("countdown.html", target_time=target_time.isoformat())
 
 # Run the app
 if __name__ == "__main__":
