@@ -6,7 +6,8 @@
     },
     {
         "name": "Orion Drift API Library",
-        "description": "An unofficial API Library made in Python, using combinations of old and new API documentation for the game \"Orion Drift\""
+        "description": "An unofficial API Library made in Python, using combinations of old and new API documentation for the game \"Orion Drift\"",
+        "repo": "https://github.com/Jonesyboy07/Orion-Drift-API-Python-Wrapper"
     },
     {
         "name": "Game Scheduler (COMP TEAMS)",
