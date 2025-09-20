@@ -7,11 +7,9 @@ import logging
 from colorama import init, Fore, Style
 from datetime import datetime
 
-# Initialize color logging
-init(autoreset=True)
-
-# Flask setup
+# === Initialize Flask ===
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'  # Required for sessions
 Compress(app)
 
 # Compression settings
@@ -51,7 +49,8 @@ for file_path, default in [
         with open(file_path, "w") as f:
             json.dump(default, f)
 
-# Logging setup (console only, no file)
+# Logging setup (console only)
+init(autoreset=True)
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 
@@ -189,9 +188,24 @@ def page_not_found(e):
 
 @app.route("/countdown")
 def countdown():
-    target_time = datetime(2025, 8, 24, 21, 0, 0)  
+    target_time = datetime(2025, 8, 31, 21, 0, 0)
     return render_template("countdown.html", target_time=target_time.isoformat())
+
+@app.route("/org/tos")
+def orgtos():
+    return render_template("sched_tos.html")
+
+@app.route("/org/priv")
+def orgpriv():
+    return render_template("sched_priv.html")
+
+# === Import and register CoolSite Blueprint (AJAX version) ===
+from CoolSite import win_streak_bp
+from chatplaysdeadlock import chat_bp
+app.register_blueprint(win_streak_bp, url_prefix="/streak")
+app.register_blueprint(chat_bp)
 
 # Run the app
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, threaded=False)
+    print("✅ Flask is running at http://127.0.0.1:5000")
+    app.run(host="0.0.0.0", port=5000)

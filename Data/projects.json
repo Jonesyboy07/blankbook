@@ -11,7 +11,8 @@
     },
     {
         "name": "Game Scheduler (COMP TEAMS)",
-        "description": "We're back."
+        "description": "We're back.",
+        "repo": "https://github.com/Jonesyboy07/comp-sched-bot"
     },
     {
         "name": "Blankbook Website",

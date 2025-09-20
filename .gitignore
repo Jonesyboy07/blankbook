@@ -4,3 +4,6 @@ AutoRestart.py
 *.bat
 Data\views.json
 Data/views.json
+CoolSite.py
+streak.json
+chatplaysdeadlock.py

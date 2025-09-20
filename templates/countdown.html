@@ -1,121 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>The End Countdown</title>
+  <meta charset="UTF-8">
+  <title>The Start...</title>
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(160deg, #0a0014 0%, #000000 100%);
+      color: #d8c7ff;
+      font-family: 'Minecraftia', monospace;
+      text-shadow: 0 0 12px #6c3bb8, 0 0 24px #2e1447;
+      overflow: hidden;
+      animation: bgPulse 10s infinite alternate ease-in-out;
+    }
 
-    <!-- Minecraft-like font via CDN -->
-    <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+    @keyframes bgPulse {
+      from { background: linear-gradient(160deg, #0a0014, #000000); }
+      to   { background: linear-gradient(160deg, #1a0036, #050008); }
+    }
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at center, #0a0014 0%, #000000 100%);
-            color: #b38aff;
-            font-family: 'Minecraftia', monospace;
-            text-shadow: 0 0 10px #5e3c91, 0 0 20px #2e1447;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-            border: 2px solid #2e1447;
-            border-radius: 12px;
-            background: rgba(10, 0, 20, 0.85);
-            box-shadow: 0 0 20px #2e1447, 0 0 60px #000;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #9b7ae5;
-        }
-        #countdown {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #c5a9ff;
-            letter-spacing: 2px;
-        }
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .particle {
-            position: absolute;
-            background: #6c3bb8;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: float 12s infinite linear;
-        }
-        @keyframes float {
-            from {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-10vh) translateX(calc(-50vw + 100vw * var(--rand-x)));
-                opacity: 0;
-            }
-        }
-    </style>
+    .container {
+      text-align: center;
+      padding: 3rem 4rem;
+      border: 2px solid #2e1447;
+      border-radius: 20px;
+      background: rgba(10, 0, 20, 0.85);
+      box-shadow: 0 0 40px #2e1447, 0 0 100px #000;
+      animation: containerPulse 6s infinite alternate ease-in-out;
+      position: relative;
+      max-width: 750px;
+      width: 90%;
+      backdrop-filter: blur(6px);
+      transform: translateY(30px);
+      opacity: 0;
+      animation: fadeInUp 1.8s ease forwards;
+    }
+
+    @keyframes containerPulse {
+      from { box-shadow: 0 0 30px #2e1447, 0 0 80px #000; }
+      to   { box-shadow: 0 0 60px #9b7ae5, 0 0 140px #000; }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(50px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #bca6f9;
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.5; }
+    }
+
+    #countdown {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #e7dbff;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 2s ease 0.5s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .segment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+
+    .digits {
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .digit {
+      display: inline-block;
+      min-width: 1ch;
+      transition: transform 0.4s, opacity 0.4s;
+    }
+
+    .digit.changing {
+      transform: rotateX(90deg);
+      opacity: 0;
+    }
+
+    .label {
+      font-size: 0.9rem;
+      color: #9b7ae5;
+      margin-top: 0.3rem;
+      opacity: 0.7;
+    }
+
+    .end-text {
+      font-size: 3rem;
+      color: #ff4df7;
+      text-shadow: 0 0 20px #a600ff, 0 0 40px #6c3bb8;
+      animation: glitch 1s infinite;
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    @keyframes glitch {
+      0%   { transform: translate(0); }
+      20%  { transform: translate(-2px, 2px); }
+      40%  { transform: translate(-2px, -2px); }
+      60%  { transform: translate(2px, 2px); }
+      80%  { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    .story {
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #cbb0ff;
+      line-height: 1.6;
+      max-height: 250px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #6c3bb8 transparent;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      white-space: pre-line;
+      border-left: 3px solid #6c3bb8;
+      padding-left: 1rem;
+      opacity: 0.9;
+      animation: fadeIn 2.2s ease 1.2s forwards;
+      opacity: 0;
+    }
+
+    .story::-webkit-scrollbar {
+      width: 6px;
+    }
+    .story::-webkit-scrollbar-thumb {
+      background: #6c3bb8;
+      border-radius: 3px;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #8e75cc;
+      margin-top: 0.5rem;
+      font-style: italic;
+      text-align: left;
+      opacity: 0.7;
+    }
+
+    .bee-button {
+      margin-top: 2.5rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #6c3bb8, #9b7ae5);
+      color: #fff;
+      font-family: 'Minecraftia', monospace;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #6c3bb8, 0 0 40px #2e1447;
+      transition: transform 0.3s, box-shadow 0.4s;
+      animation: fadeInUp 1.8s ease 1.5s forwards;
+      opacity: 0;
+    }
+
+    .bee-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #b38aff, 0 0 60px #2e1447;
+    }
+
+    /* Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, #b38aff 0%, #6c3bb8 50%, transparent 80%);
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatParticle linear forwards;
+    }
+
+    @keyframes floatParticle {
+      0%   { transform: translateY(100vh) scale(0.3); opacity: 0; }
+      20%  { opacity: 0.9; }
+      80%  { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>THE END BEGINS IN</h1>
-        <div id="countdown">Loading...</div>
+  <div class="container">
+    <h1>THE START BEGINS IN</h1>
+    <div id="countdown">
+      <div class="segment" id="days"><div class="digits"></div><div class="label">days</div></div>
+      <div class="segment" id="hours"><div class="digits"></div><div class="label">hrs</div></div>
+      <div class="segment" id="minutes"><div class="digits"></div><div class="label">min</div></div>
+      <div class="segment" id="seconds"><div class="digits"></div><div class="label">sec</div></div>
     </div>
+    <div id="end-message" class="end-text">THE TIME IS NOW</div>
+    <div class="story" id="story-text">
+      In the stillness, a whisper demanded we wait.
+      The crown of beginnings sat upon no head.
+      A bell rang, though no one held the rope.
+      "Your time starts now," it said.
 
-    <div class="particles"></div>
+      We found envelopes scattered across the floor.
+      Inside one: a potato, entirely unhelpful.
+      Another: instructions to carry water in a sieve.
+      We laughed, but the laugh echoed too long.
 
-    <script>
-        // Countdown logic
-        const targetTime = new Date("{{ target_time }}Z").getTime(); // UTC
+      A faint chalkboard appeared, tallying points we never earned.
+      The air smelled faintly of confetti and shame.
+      Shadows clapped politely at nothing in particular.
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetTime - now;
+      "Fastest wins," the whisper chuckled.
+      Someone brought a watermelon, no explanation given.
+      Another tripped over their own shoelaces — we applauded.
+      A golden buzzer gleamed, daring us not to touch it.
 
-            if (distance <= 0) {
-                document.getElementById("countdown").innerHTML = "§kTHE END§r";
-                clearInterval(interval);
-                return;
-            }
+      And above all, the taskmaster laughed louder than us all.
+    </div>
+    <div class="hint">Hint: This task is worth exactly as many points as you think it is.</div>
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    <a href="https://gist.github.com/MattIPv4/045239bc27b16b2bcf7a3a9a4648c08a" target="_blank">
+      <button class="bee-button">Read the Bee Movie Script</button>
+    </a>
+  </div>
 
-            document.getElementById("countdown").innerHTML =
-                days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+  <div class="particles"></div>
+
+  <script>
+    const targetTime = new Date("{{ target_time }}Z").getTime(); // UTC
+    const countdownEl = document.getElementById("countdown");
+    const endMessage = document.getElementById("end-message");
+
+    function renderDigits(container, newVal) {
+      const strVal = String(newVal);
+      const existing = container.querySelectorAll(".digit");
+      strVal.split("").forEach((digit, i) => {
+        if (existing[i]) {
+          if (existing[i].textContent !== digit) {
+            existing[i].classList.add("changing");
+            setTimeout(() => {
+              existing[i].textContent = digit;
+              existing[i].classList.remove("changing");
+            }, 200);
+          }
+        } else {
+          const span = document.createElement("span");
+          span.className = "digit";
+          span.textContent = digit;
+          container.appendChild(span);
         }
+      });
+      for (let i = strVal.length; i < existing.length; i++) {
+        existing[i].remove();
+      }
+    }
 
-        const interval = setInterval(updateCountdown, 1000);
-        updateCountdown();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+      if (distance <= 0) {
+        countdownEl.style.display = "none";
+        endMessage.style.display = "block";
+        clearInterval(interval);
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      renderDigits(document.querySelector("#days .digits"), days);
+      renderDigits(document.querySelector("#hours .digits"), hours.toString().padStart(2, "0"));
+      renderDigits(document.querySelector("#minutes .digits"), minutes.toString().padStart(2, "0"));
+      renderDigits(document.querySelector("#seconds .digits"), seconds.toString().padStart(2, "0"));
+    }
 
-        // Floating End particles
-        const particleContainer = document.querySelector(".particles");
-        for (let i = 0; i < 80; i++) {
-            const particle = document.createElement("div");
-            particle.classList.add("particle");
-            particle.style.left = Math.random() * 100 + "vw";
-            particle.style.top = Math.random() * 100 + "vh";
-            particle.style.setProperty("--rand-x", Math.random());
-            particleContainer.appendChild(particle);
-        }
-    </script>
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const particleContainer = document.querySelector(".particles");
+    function spawnParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      const size = Math.random() * 8 + 4; 
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.animationDuration = 8 + Math.random() * 10 + "s";
+      particle.style.animationDelay = Math.random() * 5 + "s";
+      particleContainer.appendChild(particle);
+      setTimeout(() => particle.remove(), 20000);
+    }
+    setInterval(spawnParticle, 200);
+  </script>
 </body>
 </html>
